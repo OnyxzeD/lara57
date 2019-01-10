@@ -76,13 +76,13 @@ class PostController extends Controller
 
     }
 
-    public function editPost(request $request)
+    public function editPost(Request $request)
     {
         $post = Post::find($request->id);
-        $post->tanggal_lapor = $request->tanggal_lapor;
-        $post->w_mulai = $request->w_mulai;
-        $post->w_selesai = $request->w_selesai;
-        $post->w_pakai = $request->w_pakai;
+        $post->tanggal_lapor = $request->tanggal;
+        $post->w_mulai = $request->mulai;
+        $post->w_selesai = $request->selesai;
+        $post->w_pakai = $request->pakai;
         $post->cp = $request->cp;
         $post->product = $request->product;
         $post->priority = $request->priority;
@@ -92,12 +92,23 @@ class PostController extends Controller
         $post->prob_solv = $request->prob_solv;
         $post->tech = $request->tech;
         $post->save();
-        return response()->json($post);
+
+        return response()->json(['errors' => false, 'message' => 'Data Updated!']);
     }
 
-    public function deletePost(request $request)
+    public function editModal($id)
     {
-        $post = Post::find($request->id)->delete();
-        return response()->json();
+        $data = Post::find($id);
+        return view('post.modal-edit', compact('data'));
+    }
+
+    public function deletePost($id)
+    {
+        $q = Post::find($id);
+        if (!$q) {
+            return response()->json(['errors' => true, 'message' => 'Data Not Found!']);
+        }
+        $q->delete();
+        return response()->json(['errors' => false, 'message' => 'Data Deleted!']);
     }
 }

@@ -21,9 +21,10 @@ Route::get('/', function () {
 
 
 Route::group(['middleware' => ['web']], function () {
-    Route::resource('post', 'PostController');
+    Route::GET('post', 'PostController@index');
     Route::GET('post-list', 'PostController@listData');
+    Route::GET('post-modal-edit/{id}', 'PostController@editModal');
     Route::POST('addPost', 'PostController@addPost');
     Route::POST('editPost', 'PostController@editPost');
-    Route::DELETE('deletePost', 'PostController@deletePost');
+    Route::DELETE('deletePost/{id}', 'PostController@deletePost');
 });
