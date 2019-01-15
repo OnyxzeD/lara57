@@ -99,7 +99,8 @@ class PostController extends Controller
     public function editModal($id)
     {
         $data = Post::find($id);
-        return view('post.modal-edit', compact('data'));
+//        return view('post.modal-edit', compact('data'));
+        return response()->json($data->toArray());
     }
 
     public function deletePost($id)

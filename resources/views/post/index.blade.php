@@ -221,6 +221,107 @@
                 </div>
                 <div class="modal-body" id="editBody">
                     {{--dynamic content from ajax--}}
+                    <form class="form-horizontal" role="form" id="editForm">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="tanggal">Tanggal Lapor :</label>
+                            <div class="col-sm-6">
+                                <input type="hidden" name="id" value="">
+                                <input type="date" class="form-control" id="tanggal" name="w_tanggal"
+                                       required value="">
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="mulai">Start :</label>
+                            <div class="col-sm-6">
+                                <input type="date" class="form-control" id="mulai" name="w_mulai"
+                                       required value="">
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="selesai">Done :</label>
+                            <div class="col-sm-6">
+                                <input type="date" class="form-control" id="selesai" name="w_selesai"
+                                       required value="">
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="pakai">Elapsed :</label>
+                            <div class="col-sm-6">
+                                <input type="date" class="form-control" id="pakai" name="w_pakai"
+                                       required value="">
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="cp">Contact Person :</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="cp" name="cp"
+                                       required value="">
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="product">Product :</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="product" name="product"
+                                       required value="">
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="priority">Priority :</label>
+                            <div class="col-sm-6">
+                                <select name="priority" class="form-control">
+                                        <option value="High" selected>High</option>
+                                        <option value="Medium" selected>Medium</option>
+                                        <option value="Low" selected>Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="status">Status :</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="status" name="status"
+                                       required value="">
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="topic">Topic :</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="topic" name="topic" rows="3"
+                                          required></textarea>
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="issue">Issue Description :</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="issue" name="issue_desc" rows="6"
+                                          required></textarea>
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="problem">Problem Solving :</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="problem" name="prob_solv" rows="6"
+                                          required></textarea>
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="tech">Technician :</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="tech" name="tech"
+                                       required value="">
+                                <p class="error text-center alert alert-danger hidden"></p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-warning" type="submit" id="editTroubleshoot">
@@ -402,8 +503,22 @@
                 data: {}
             })
                 .done(function (data) {
-                    // console.log(data)
-                    $("#editBody").html(data);
+                    // console.log(data);
+                    var $form = $("#editForm");
+                        $form.find("input[name='id']").val(data.id);
+                        $form.find("input[name='w_tanggal']").val(data.tanggal_lapor);
+                        $form.find("input[name='w_mulai']").val(data.w_mulai);
+                        $form.find("input[name='w_selesai']").val(data.w_selesai);
+                        $form.find("input[name='w_pakai']").val(data.w_pakai);
+                        $form.find("input[name='cp']").val(data.cp);
+                        $form.find("input[name='product']").val(data.product);
+                        $form.find("select[name='priority']").val(data.priority);
+                        $form.find("input[name='status']").val(data.status);
+                        $form.find("textarea[name='topic']").val(data.topic);
+                        $form.find("textarea[name='issue_desc']").val(data.issue_desc);
+                        $form.find("textarea[name='prob_solv']").val(data.prob_solv);
+                        $form.find("input[name='tech']").val(data.tech);
+                    // $("#editBody").html(data);
                     $("#modal-edit").modal('show');
                 });
 
